@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <title>ねこばこ</title>
+    <meta name="description" content="箱に猫を落として、同じ猫どうしを合体させるパズルゲーム。ライオンをめざそう。" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://neko.app.hirakawaxxx.com/" />
+    <meta property="og:title" content="ねこばこ" />
+    <meta property="og:description" content="箱に猫を落として、同じ猫どうしを合体させよう。ライオンをめざすパズルゲームです。" />
+    <meta property="og:image" content="https://neko.app.hirakawaxxx.com/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ねこばこ" />
+    <meta name="twitter:description" content="箱に猫を落として、同じ猫どうしを合体させよう。ライオンをめざすパズルゲームです。" />
+    <meta name="twitter:image" content="https://neko.app.hirakawaxxx.com/og.png" />
+    <link rel="preload" href="/fonts/zen-maru-gothic-500.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/fonts.css" />
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/components.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#eeede9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141716" media="(prefers-color-scheme: dark)" />
+  </head>
+  <body>
+    <div class="app" id="app">
+      <header class="hud">
+        <div class="hud__main">
+          <h1 class="ui-text-heading">ねこばこ</h1>
+          <p class="hud__score"><span class="ui-text-caption">とくてん</span> <output id="score" class="ui-text-title">0</output></p>
+          <p class="hud__best"><span class="ui-text-caption">さいこう</span> <output id="best" class="ui-text-label">0</output></p>
+        </div>
+        <div class="hud__side">
+          <button type="button" id="mute" class="ui-chip" aria-pressed="false">消音</button>
+          <div class="next">
+            <span class="ui-text-caption">つぎ</span>
+            <canvas id="next" class="pixel next__canvas" width="40" height="40" role="img" aria-label="つぎの猫"></canvas>
+          </div>
+        </div>
+      </header>
+
+      <main class="board" id="board-wrap">
+        <canvas id="board" class="pixel board__canvas" width="180" height="240" role="img" aria-label="猫を落とす箱"></canvas>
+      </main>
+
+      <footer class="hint">
+        <p class="ui-text-caption">動かして、はなして落とす。同じ猫で合体!</p>
+        <p class="ui-text-caption hint__keys">キーボード: ← → で動かし、Space か Enter で落とす</p>
+      </footer>
+    </div>
+    <div id="over" class="over" role="dialog" aria-modal="true" aria-labelledby="over-title" hidden>
+      <div class="result ui-card">
+        <p class="ui-text-label result__app">ねこばこ</p>
+        <h2 id="over-title" class="ui-text-title">満員です</h2>
+        <div class="result__hero">
+          <canvas id="over-hero" class="pixel result__hero-cat" width="82" height="82" role="img" aria-label="いちばん大きく育った猫"></canvas>
+        </div>
+        <p id="over-hero-name" class="ui-text-label"></p>
+        <p class="result__score"><span class="ui-text-caption">とくてん</span> <output id="over-score" class="ui-text-display">0</output></p>
+        <p id="over-record" class="ui-text-label over__record" hidden>新記録です!</p>
+        <p class="result__stats ui-text-caption">
+          <span>さいこう <output id="over-best">0</output></span>
+          <span>落とした猫 <output id="over-drops">0</output>匹</span>
+          <span>合体 <output id="over-merges">0</output>回</span>
+        </p>
+        <div id="over-zukan" class="result__zukan" role="img"></div>
+      </div>
+      <button type="button" id="again" class="ui-button ui-button--primary">もう一度</button>
+    </div>
+    <script src="/vendor/matter.min.js"></script>
+    <script type="module" src="/game.js"></script>
+    <script src="/register-sw.js"></script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+/*
+ * Drawn on a 180px canvas with the UI tokens; other sizes use `zoom`.
+ * --k (set by icon.js) deepens the shadows at small final sizes so the edges do not vanish.
+ * Motif: a round white cat peeking out of a mint box. Everything stays inside the 72px maskable safe circle.
+ */
+
+html,
+body {
+  margin: 0;
+  background: var(--color-bg);
+}
+
+.icon {
+  --k: 1;
+
+  display: grid;
+  place-items: center;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.box {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.cat {
+  position: absolute;
+  top: 6px;
+  left: 20px;
+  width: 80px;
+  height: 80px;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--color-surface-raised);
+  box-shadow:
+    0 calc(2px * var(--k)) calc(4px * var(--k)) hsl(var(--shadow-color) / 0.3),
+    inset 0 calc(2px * var(--k)) 0 hsl(var(--highlight-color) / 0.9),
+    inset 0 calc(-5px * var(--k)) calc(8px * var(--k)) hsl(var(--shadow-color) / 0.14);
+}
+
+.ear {
+  position: absolute;
+  top: -12px;
+  width: 30px;
+  height: 34px;
+  background: var(--color-surface-raised);
+  filter: drop-shadow(0 calc(1px * var(--k)) calc(1.5px * var(--k)) hsl(var(--shadow-color) / 0.3));
+}
+
+.ear--l {
+  left: 2px;
+  clip-path: polygon(0% 100%, 12% 0%, 100% 70%);
+}
+
+.ear--r {
+  right: 2px;
+  clip-path: polygon(100% 100%, 88% 0%, 0% 70%);
+}
+
+.eye {
+  position: absolute;
+  top: 38px;
+  width: 8px;
+  height: 12px;
+  border-radius: 4px;
+  background: var(--color-text);
+}
+
+.eye--l {
+  left: 22px;
+}
+
+.eye--r {
+  right: 22px;
+}
+
+.nose {
+  position: absolute;
+  top: 54px;
+  left: 35px;
+  width: 10px;
+  height: 7px;
+  border-radius: 3px 3px 5px 5px;
+  background: var(--color-primary-strong);
+}
+
+/* The front of the box hides the cat's lower half. */
+.front {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 58px;
+  border-radius: 14px 14px 30px 30px;
+  background: var(--color-primary);
+  box-shadow:
+    0 calc(2px * var(--k)) calc(4px * var(--k)) hsl(var(--shadow-color) / 0.3),
+    inset 0 calc(3px * var(--k)) 0 hsl(var(--highlight-color) / 0.55),
+    inset 0 calc(-6px * var(--k)) calc(8px * var(--k)) hsl(var(--shadow-color) / 0.16);
+}

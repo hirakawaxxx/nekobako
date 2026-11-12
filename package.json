@@ -1,0 +1,13 @@
+{
+  "name": "nekobako",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "sw-revision": "node scripts/sw-revision.mjs",
+    "vendor": "cp node_modules/matter-js/build/matter.min.js public/vendor/matter.min.js && cp node_modules/matter-js/LICENSE public/vendor/matter-LICENSE.txt"
+  },
+  "devDependencies": {
+    "matter-js": "^0.20.0"
+  }
+}

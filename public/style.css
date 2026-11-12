@@ -1,0 +1,255 @@
+/* App-specific layout. Colors, type and effects come from tokens.css / components.css.
+   --px is the size of one art pixel in CSS pixels; game.js sets it to a whole number of device pixels. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  --px: 2px;
+
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: var(--font-body);
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding:
+    calc(var(--space-2) + env(safe-area-inset-top))
+    calc(var(--space-2) + env(safe-area-inset-right))
+    calc(var(--space-2) + env(safe-area-inset-bottom))
+    calc(var(--space-2) + env(safe-area-inset-left));
+}
+
+.hud {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: calc(180 * var(--px));
+}
+
+.hud__main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.hud__main h1 {
+  line-height: 1.2;
+}
+
+.hud__score,
+.hud__best {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.hud__score output {
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.hud__best output {
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__side {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.next__canvas {
+  width: calc(40 * var(--px));
+  height: calc(40 * var(--px));
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  box-shadow: var(--shadow-inset);
+}
+
+.pixel {
+  display: block;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.board {
+  position: relative;
+  width: calc(180 * var(--px));
+  height: calc(var(--world-h, 240) * var(--px));
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  box-shadow: var(--drop-3);
+}
+
+.board__canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+/* Result screen: covers the whole page so a screenshot of it stands on its own. */
+.over {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding:
+    calc(var(--space-3) + env(safe-area-inset-top))
+    calc(var(--space-3) + env(safe-area-inset-right))
+    calc(var(--space-3) + env(safe-area-inset-bottom))
+    calc(var(--space-3) + env(safe-area-inset-left));
+  overflow: hidden;
+  background: var(--color-bg);
+  animation: over-in var(--duration-slow) var(--easing-standard);
+}
+
+.over[hidden] {
+  display: none;
+}
+
+.result {
+  /* One art pixel of the small cats: half of a board pixel, still a whole number of device pixels on phones. */
+  --dot: calc(var(--px) / 2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 22rem;
+  text-align: center;
+}
+
+.result__app {
+  color: var(--color-text-muted);
+}
+
+.result__hero {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: calc(176px + 2 * var(--space-3));
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  box-shadow: var(--shadow-inset);
+}
+
+.result__hero-cat {
+  width: calc(var(--d, 82) * var(--k, 2) * 1px);
+  height: calc(var(--d, 82) * var(--k, 2) * 1px);
+}
+
+.result__score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.result__score output {
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.over__record {
+  color: var(--color-success-text);
+}
+
+.result__stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-3);
+}
+
+.result__stats output {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.result__zukan {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-1);
+  margin-top: var(--space-2);
+}
+
+.result__zukan canvas {
+  width: calc(var(--d) * var(--dot));
+  height: calc(var(--d) * var(--dot));
+}
+
+/* Stages not reached this game: a flat grey shape. */
+.result__zukan .is-locked {
+  filter: contrast(0);
+  opacity: 0.35;
+}
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: calc(180 * var(--px));
+  text-align: center;
+}
+
+/* No hover-capable pointer, no keyboard hint worth showing. */
+@media (hover: none) {
+  .hint__keys {
+    display: none;
+  }
+}
+
+@keyframes over-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .over {
+    animation: none;
+  }
+}
